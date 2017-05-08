@@ -16,3 +16,5 @@
 // nodemon para autoupdate alterações do server
 // npm install -g nodemon
 // dai chama direto nodemon app
+
+// lalal
