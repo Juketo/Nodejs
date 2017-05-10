@@ -9,7 +9,10 @@ module.exports = function(app)
         //res.send('<html><body><h1>Listagem de produtos</h1></body></html>')
         produtosDAO.lista(function(erros, resultados)
         {
-            res.render('produtos/lista', {lista:resultados});
+            res.format({
+                html: function(){ res.render('produtos/lista', {lista:resultados}); },
+                json: function(){ res.json(resultados); } // ex: android
+            });
         });
         connection.end();
     });
@@ -26,6 +29,7 @@ module.exports = function(app)
         var connection = app.infra.connectionFactory();
         var produtosDAO = new app.infra.ProdutosDAO(connection);
         produtosDAO.salva(produto, function(erros, resultados){
+            console.log(erros);
             res.redirect('/produtos');
         });
     });
