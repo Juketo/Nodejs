@@ -1,6 +1,7 @@
 var express = require('express');
 var load = require('express-load'); // biblioteca de carregamento automático
 var bodyParser = require('body-parser');
+var expressValidatior = require('express-validator');
 
 module.exports = function()
 {
@@ -11,6 +12,7 @@ module.exports = function()
 
     app.use(bodyParser.urlencoded({extended: true}));
     app.use(bodyParser.json());
+    app.use(expressValidatior());
 
     load('routes', { cwd: 'app'})
         .then('infra')
