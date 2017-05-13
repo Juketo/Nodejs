@@ -18,6 +18,25 @@ module.exports = function()
     load('routes', { cwd: 'app'})
         .then('infra')
         .into(app);
+
+    app.use(function(req, res, next)
+    {
+        res.status(404).render('erros/404');
+        next();
+    });
+
+    app.use(function(error, req, res, next)
+    {
+        if (process.env.NODE_ENV == 'production') 
+        { // só joga erro amigável quando em produção
+            res.status(500).render('erros/404'); // erro 500 é quando não acha o DB
+            return;
+        }
+        next(error);
+    });
+
+    // tem que colocar na ordem, caso contrário ele passa pelo middleware e 
+    // ainda não vai ter acontecido nenhum erro.
     
     return app;
 }
