@@ -2,13 +2,18 @@
 
 module.exports = function(app)
 {
-    app.get('/produtos', function(req, res)
+    app.get('/produtos', function(req, res, next)
     {
         var connection = app.infra.connectionFactory();
         var produtosDAO = new app.infra.ProdutosDAO(connection);
         //res.send('<html><body><h1>Listagem de produtos</h1></body></html>')
         produtosDAO.lista(function(erros, resultados)
         {
+            if (erros)
+            {
+                return next(erros); // express lida com o erro
+            }
+
             res.format({
                 html: function(){ res.render('produtos/lista', {lista:resultados}); },
                 json: function(){ res.json(resultados); } // ex: android
