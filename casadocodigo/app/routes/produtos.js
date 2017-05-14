@@ -41,7 +41,7 @@ module.exports = function(app)
         {
             res.format({
                 html: function(){
-                    res.status(400).render('produtos/form',{errosValidacao:erros,produto:produto});
+                    res.status(400).render('produtos/form',{errosValidacao:erros, produto:produto});
                 },
                 json: function(){
                     res.status(400).json(erros);

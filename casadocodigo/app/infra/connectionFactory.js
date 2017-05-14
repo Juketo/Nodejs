@@ -3,7 +3,7 @@ var mysql = require('mysql'); // tem que instalar via console
 // FACTORY METHOD: objeto complexo que foi isolado
 function createDBConnection()
 {
-    if (!process.env.NODE_ENV || process.env.node === 'dev') // == 'development'
+    if (!process.env.NODE_ENV || process.env.node == 'dev') // == 'development'
     {
         return mysql.createConnection({
             host : 'localhost',

@@ -8,6 +8,11 @@ module.exports = function(app)
         produtos.lista(function(erros, resultados)
         {
             res.render('home/index',{livros: resultados});
+
+            if (erros)
+            {
+                console.log('home.js erros: ' +erros);
+            }
         });
         connection.end();
     });
