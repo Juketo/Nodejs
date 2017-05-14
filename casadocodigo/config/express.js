@@ -35,6 +35,8 @@ module.exports = function()
         next(error);
     });
 
+    //consign({cwd: process.cwd()+"/app"});
+
     // tem que colocar na ordem, caso contrário ele passa pelo middleware e 
     // ainda não vai ter acontecido nenhum erro.
     

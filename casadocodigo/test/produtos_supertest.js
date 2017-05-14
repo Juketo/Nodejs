@@ -13,20 +13,27 @@ describe('#ProdutosController_Supertest', function()
         });
     });
 
-    it('#listagem json', function(done)
+    it('#listagem de produtos json', function (done) 
     {
-        // supertest encapsula as configurações
+        request.get('/produtos')
+            .set('Accept', 'application/json')
+            .expect('Content-Type', /json/)
+            .expect(200,done)
 
-        request.get('/produtos') // atalho por causa do express
-               .set('Accept', 'application/json')
-               .expect('content-type', /json/) // entre "/" é regex
-               .expect(200, done);              
+    });
+
+    it('#listagem de produtos html', function (done) 
+    {
+        request.get('/produtos')
+            .expect('Content-Type', /html/)
+            .expect(200,done)
+
     });
 
     it('#cadastro de novo produto com dados inválidos', function(done)
     {
         request.post('/produtos')
-               .send({titulo:"", descricao:"novo livro"})
+               .send({titulo:"", descricao:"novo livro desc"})
                .expect(400, done);
     });
 
@@ -35,10 +42,15 @@ describe('#ProdutosController_Supertest', function()
     it('#cadastro de novo produto com dados válidos', function(done)
     {
         request.post('/produtos')
-               .send({titulo:"título bacana", 
-                      descricao:"novo livro bacana", 
-                      preco:99.50})
-               .expect(302, done);
+               .send({titulo:"título bacana extra", 
+                      preco:99.50,
+                      descricao:"novo livro bacanudo" })
+               .expect(302)
+               .end(function(err,response)
+               { 
+                   console.log('aqui deu erro: ' +err);
+                   done(); 
+               });
     });
 });
 

@@ -9,7 +9,8 @@ app.set('io', io); // pegar o objeto io você deve pedi-lo para o objeto do expr
 
 //var rotasProdutos = require('./app/routes/produtos')(app); // load faz automático
 
-http.listen(3000, function()
+var porta = process.env.PORT || 3000; // deixa em aberto se não achar, usa a 300
+http.listen(porta, function()
 { //era chamado do app do express, mas mudou por causa do socket_io
-    console.log('server rodando');
+    console.log('server rodando no heroku');
 });
